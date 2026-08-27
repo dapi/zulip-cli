@@ -1,0 +1,35 @@
+{
+  "name": "@dapi/zulip-cli",
+  "version": "0.1.0",
+  "description": "JSON-first Zulip CLI for AI agents and automation",
+  "type": "module",
+  "bin": {
+    "zulip": "bin/zulip.js",
+    "zulip-cli": "bin/zulip.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check bin/zulip.js && node --check src/args.js && node --check src/client.js && node --check src/cli.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "zulip",
+    "cli",
+    "agent",
+    "automation"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dapi/zulip-cli.git"
+  }
+}
