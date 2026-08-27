@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { basename } from "node:path";
 
+import { VERSION } from "./version.js";
+
 export class ZulipCliError extends Error {
   constructor(message, { code = "INTERNAL_ERROR", exitCode = 1, details = null } = {}) {
     super(message);
@@ -89,7 +91,7 @@ export class ZulipClient {
 
     const headers = {
       Accept: "application/json",
-      "User-Agent": "zulip-cli/0.1.0",
+      "User-Agent": `zulip-cli/${VERSION}`,
     };
     if (authenticated) {
       headers.Authorization = `Basic ${Buffer.from(`${this.email}:${this.apiKey}`).toString("base64")}`;
@@ -166,7 +168,7 @@ export class ZulipClient {
         headers: {
           Accept: "application/json",
           Authorization: `Basic ${Buffer.from(`${this.email}:${this.apiKey}`).toString("base64")}`,
-          "User-Agent": "zulip-cli/0.1.0",
+          "User-Agent": `zulip-cli/${VERSION}`,
         },
         body: form,
         signal: AbortSignal.timeout(this.timeoutMs),

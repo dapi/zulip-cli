@@ -9,8 +9,7 @@ import {
   UsageError,
 } from "./args.js";
 import { ZulipClient, ZulipCliError } from "./client.js";
-
-const VERSION = "0.1.0";
+import { VERSION } from "./version.js";
 
 const COMMANDS = [
   { name: "server-info", auth: false, description: "Get public Zulip server settings" },

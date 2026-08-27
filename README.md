@@ -9,14 +9,15 @@ files through the official Zulip REST API.
 Requires Node.js 20 or newer on macOS or Linux:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/dapi/zulip-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/dapi/zulip-cli/v0.1.0/install.sh | sh
 ```
 
 Manual installation:
 
 ```sh
-npm install -g github:dapi/zulip-cli
-npx skills add dapi/zulip-cli --skill zulip-cli --agent '*' -g -y
+npm install -g github:dapi/zulip-cli#v0.1.0
+npx skills add https://github.com/dapi/zulip-cli/tree/v0.1.0 \
+  --skill zulip-cli --agent '*' -g -y
 ```
 
 Restart the agent session after installing the skill.
@@ -107,6 +108,27 @@ putting secrets on the command line is discouraged.
 npm install
 npm test
 npm run check
+```
+
+## Releases
+
+Releases follow [Semantic Versioning](https://semver.org/). `package.json` is
+the version source of truth. A pushed `vX.Y.Z` tag must match it; GitHub Actions
+then runs the checks, creates the npm package tarball and checksum, and publishes
+a GitHub Release.
+
+Prepare a release by updating the package version and every pinned install
+example, then verify and tag it:
+
+```sh
+npm version patch --no-git-tag-version # or minor / major
+npm run release:check -- vX.Y.Z
+npm test
+npm run check
+git add package.json package-lock.json README.md SKILL.md install.sh
+git commit -m "chore(release): vX.Y.Z"
+git tag -a vX.Y.Z -m "vX.Y.Z"
+git push origin main vX.Y.Z
 ```
 
 ## License
