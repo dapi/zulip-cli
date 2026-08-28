@@ -72,6 +72,7 @@ zulip message-info --message-id 123 --raw
 
 zulip message-send --stream general --topic deploy --content @message.md
 printf '%s\n' 'Hello' | zulip message-send --to user@example.com --content -
+zulip message-delete --message-id 123
 zulip file-upload --file ./report.pdf
 ```
 

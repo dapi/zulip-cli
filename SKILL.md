@@ -106,6 +106,12 @@ zulip message-send --stream general --topic deploy --content @message.md
 printf '%s\n' 'Hello' | zulip message-send --to user@example.com --content -
 ```
 
+Delete a message only when explicitly authorized, by numeric ID:
+
+```sh
+zulip message-delete --message-id 123
+```
+
 Upload a file, then include the returned URL in an authorized message:
 
 ```sh

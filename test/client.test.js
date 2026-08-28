@@ -88,3 +88,20 @@ test("Zulip API errors preserve useful metadata", async () => {
     (error) => error.code === "AUTH_ERROR" && error.details.httpStatus === 401,
   );
 });
+
+test("DELETE requests target the message endpoint", async () => {
+  let received;
+  const client = new ZulipClient({
+    site: "https://zulip.example.com",
+    email: "agent@example.com",
+    apiKey: "secret",
+    fetchImpl: async (url, options) => {
+      received = { url: String(url), options };
+      return Response.json({ result: "success", msg: "" });
+    },
+  });
+
+  await client.request("DELETE", "messages/123");
+  assert.equal(received.url, "https://zulip.example.com/api/v1/messages/123");
+  assert.equal(received.options.method, "DELETE");
+});

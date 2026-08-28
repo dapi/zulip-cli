@@ -21,6 +21,7 @@ const COMMANDS = [
   { name: "message-search", auth: true, description: "Search messages" },
   { name: "message-info", auth: true, description: "Fetch one message by ID" },
   { name: "message-send", auth: true, mutation: true, description: "Send a channel or direct message" },
+  { name: "message-delete", auth: true, mutation: true, description: "Delete a message by ID" },
   { name: "file-upload", auth: true, mutation: true, description: "Upload a file and return its Zulip URL" },
   { name: "commands", auth: false, description: "List commands and their options" },
 ];
@@ -50,6 +51,7 @@ const COMMAND_OPTIONS = {
     "--raw",
   ],
   "message-info": ["--message-id <id>", "--raw"],
+  "message-delete": ["--message-id <id>"],
   "message-send": [
     "--stream <name-or-id> --topic <topic>",
     "or --to <email-or-id[,email-or-id]>",
@@ -224,6 +226,11 @@ async function execute(command, options, client) {
           allow_empty_topic_name: true,
         },
       });
+    }
+    case "message-delete": {
+      const messageId = integerOption(options, "message-id", undefined, { min: 1 });
+      if (messageId === undefined) throw new UsageError("Missing required option --message-id");
+      return client.request("DELETE", `messages/${messageId}`);
     }
     case "message-send": {
       const hasStream = options.stream !== undefined;
