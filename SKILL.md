@@ -12,14 +12,14 @@ Use `zulip` for non-interactive, JSON-first Zulip workflows.
 Install both the CLI and this skill:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/dapi/zulip-cli/v0.1.0/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/dapi/zulip-cli/v0.2.0/install.sh | sh
 ```
 
 Manual installation:
 
 ```sh
-npm install -g github:dapi/zulip-cli#v0.1.0
-npx skills add https://github.com/dapi/zulip-cli/tree/v0.1.0 \
+npm install -g github:dapi/zulip-cli#v0.2.0
+npx skills add https://github.com/dapi/zulip-cli/tree/v0.2.0 \
   --skill zulip-cli --agent '*' -g -y
 ```
 
