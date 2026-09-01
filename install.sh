@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -eu
 
-ZULIP_CLI_VERSION=${ZULIP_CLI_VERSION:-v0.2.0}
+ZULIP_CLI_VERSION=${ZULIP_CLI_VERSION:-v0.2.1}
 
 command -v npm >/dev/null 2>&1 || {
   printf '%s\n' 'npm is required. Install Node.js 20 or newer and retry.' >&2

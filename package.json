@@ -1,6 +1,6 @@
 {
   "name": "@dapi/zulip-cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "JSON-first Zulip CLI for AI agents and automation",
   "type": "module",
   "bin": {
