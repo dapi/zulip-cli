@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { stdout as output, stderr as errorOutput } from "node:process";
+import { stdin as input, stdout as output, stderr as errorOutput } from "node:process";
 
 import {
   booleanOption,
@@ -144,8 +144,20 @@ function parseRecipients(value) {
   return recipients;
 }
 
-async function readContent(specification) {
-  if (specification === "-") return readFile(0, "utf8");
+async function readStream(stream) {
+  const chunks = [];
+  try {
+    for await (const chunk of stream) {
+      chunks.push(typeof chunk === "string" ? chunk : chunk.toString("utf8"));
+    }
+  } catch (error) {
+    throw new UsageError(`Cannot read content from stdin: ${error.message}`);
+  }
+  return chunks.join("");
+}
+
+async function readContent(specification, { inputStream = input } = {}) {
+  if (specification === "-") return readStream(inputStream);
   if (specification.startsWith("@")) {
     const path = specification.slice(1);
     if (!path) throw new UsageError("Content file path cannot be empty");
@@ -293,4 +305,4 @@ export async function main(argv) {
   }
 }
 
-export { COMMANDS, COMMAND_OPTIONS, buildNarrow, parseRecipients, readContent };
+export { COMMANDS, COMMAND_OPTIONS, buildNarrow, parseRecipients, readContent, readStream };
